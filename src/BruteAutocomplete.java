@@ -40,8 +40,9 @@ public class BruteAutocomplete implements Autocompletor {
 		PriorityQueue<Term> pq = 
 				new PriorityQueue<>(Comparator.comparing(Term::getWeight));
 		for (Term t : myTerms) {
-			if (!t.getWord().startsWith(prefix))
-				continue;
+			if (!t.getWord().startsWith(prefix)) {
+				continue; // don't process if doesn't begin with prefix
+			}
 			if (pq.size() < k) {
 				pq.add(t);
 			} else if (pq.peek().getWeight() < t.getWeight()) {
@@ -49,6 +50,10 @@ public class BruteAutocomplete implements Autocompletor {
 				pq.add(t);
 			}
 		}
+		// after loop, pq holds *at most* k Terms and
+		// these are terms that are the "heaviest" based on code above
+		// since pq is a min-pq, lightest/least-heavy is first to be removed
+
 		int numResults = Math.min(k, pq.size());
 		LinkedList<Term> ret = new LinkedList<>();
 		for (int i = 0; i < numResults; i++) {

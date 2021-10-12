@@ -67,26 +67,6 @@ public class TestTerm {
 		}
 	}
 
-	/**
-	 * Tests ReverseWeightSortingOrder
-	 */
-	@Test
-	public void testReverseWeightSortingOrder() {
-		Term[] terms = getTerms();
-		Term[] sorted = { terms[1], terms[2], terms[0], terms[4], terms[6], terms[3], terms[5] };
-		for (int i = 0; i < 10; i++) {
-			// preserve chipotle and jalapeno's order
-			Collections.shuffle(Arrays.asList(terms));
-			if (indexOf(terms, sorted[5]) > indexOf(terms, sorted[6])) {
-				int temp = indexOf(terms, sorted[5]);
-				terms[indexOf(terms, sorted[6])] = sorted[5];
-				terms[temp] = sorted[6];
-			}
-			Arrays.sort(terms,
-					Comparator.comparing(Term::getWeight).reversed());
-			assertArrayEquals(sorted, terms);
-		}
-	}
 
 	@Test
 	/**
@@ -144,8 +124,8 @@ public class TestTerm {
 	public void testPrefixPrefix() {
 		Term a = new Term("bee",0);
 		Term b = new Term("beeswax",0);
-		Comparator<Term> c3 = PrefixComparator.getComparator(3); //new Term.PrefixOrder(3);
-		Comparator<Term> c4 = PrefixComparator.getComparator(4); //new Term.PrefixOrder(4);
+		Comparator<Term> c3 = PrefixComparator.getComparator(3);
+		Comparator<Term> c4 = PrefixComparator.getComparator(4); 
 
 		int r3 = c3.compare(a,b);
 		int r4 = c4.compare(a,b);

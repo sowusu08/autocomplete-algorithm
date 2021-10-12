@@ -33,8 +33,15 @@ public class    PrefixComparator implements Comparator<Term> {
 
 
     @Override
+    /**
+     * Use at most myPrefixSize characters from each of v and w
+     * to return a value comparing v and w by words. Comparisons
+     * should be made based on the first myPrefixSize chars in v and w.
+     * @return < 0 if v < w, == 0 if v == w, and > 0 if v > w
+     */
     public int compare(Term v, Term w) {
-        // change this to use myPrefixSize as specified
+        // change this to use myPrefixSize as specified,
+        // replacing line below with code
         return v.getWord().compareTo(w.getWord());
     }
 }
