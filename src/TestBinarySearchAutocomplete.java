@@ -138,7 +138,7 @@ public class TestBinarySearchAutocomplete {
 		assertEquals(-1, BinarySearchAutocomplete.lastIndexOf(myTerms, new Term("d", 0), PrefixComparator.getComparator(1)));
 		assertEquals(-1, BinarySearchAutocomplete.lastIndexOf(myTerms, new Term("ab", 0), PrefixComparator.getComparator(2)));
 		assertEquals(-1, BinarySearchAutocomplete.lastIndexOf(myTerms, new Term("car", 0), PrefixComparator.getComparator(3)));
-		assertEquals(-1, BinarySearchAutocomplete.lastIndexOf(myTerms, new Term("cat ", 0), PrefixComparator.getComparator(4)));
+		assertEquals(-1, BinarySearchAutocomplete.lastIndexOf(myTerms, new Term("cats", 0), PrefixComparator.getComparator(4)));
 	}
 
 	/**
