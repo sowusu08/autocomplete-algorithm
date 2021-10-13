@@ -120,16 +120,56 @@ public class TestTerm {
 	}
 
 
+	// These tests verify that your PrefixComparator correctly compares words with the same
+	// myPrefixSize characters and also compares two words with the same first characters with
+	// length less than myPrefixSize.
 	@Test
 	public void testPrefixPrefix() {
 		Term a = new Term("bee",0);
 		Term b = new Term("beeswax",0);
-		Comparator<Term> c3 = PrefixComparator.getComparator(3);
-		Comparator<Term> c4 = PrefixComparator.getComparator(4); 
+		Comparator<Term> c3 = PrefixComparator.getComparator(3); //new Term.PrefixOrder(3);
+		Comparator<Term> c4 = PrefixComparator.getComparator(4); //new Term.PrefixOrder(4);
 
-		int r3 = c3.compare(a,b);
-		int r4 = c4.compare(a,b);
-		assertEquals(0,r3,a.getWord()+ " "+b.getWord()+" 3");
-		assertEquals(-1,Math.signum(r4),a.getWord()+ " "+b.getWord()+" 4");
+		int r3_bee = c3.compare(a,b);
+		int r4_bee = c4.compare(a,b);
+		assertEquals(0,r3_bee,a.getWord()+ " "+b.getWord()+" with prefix size 3 should be equal");
+		assertEquals(-1,Math.signum(r4_bee),a.getWord()+ " should be less than "+b.getWord()+" with prefix size 4");
+
+		Term c = new Term("cat", 0);
+		Term d = new Term("cats", 0);
+
+		int r3_cat = c3.compare(c, d);
+		int r4_cat = c4.compare(c, d);
+		assertEquals(0,r3_cat,c.getWord()+ " "+d.getWord()+" with prefix size 3 should be equal");
+		assertEquals(-1,Math.signum(r4_cat),c.getWord()+ " should be less than "+d.getWord()+" with prefix size 4");
+	}
+
+	// This test performs additional tests according to the table provided in the writeup
+	// outside of the ones above.
+	@Test
+	public void testPrefixAdditional(){
+		Comparator<Term> c3 = PrefixComparator.getComparator(3); //new Term.PrefixOrder(3);
+		Comparator<Term> c4 = PrefixComparator.getComparator(4); //new Term.PrefixOrder(4);
+
+		Term a = new Term("bees", 0);
+		Term b = new Term("beek", 0);
+		Term c = new Term("bug", 0);
+		Term d = new Term("beeswax", 0);
+		Term e = new Term("beekeeper", 0);
+		Term f = new Term("bee", 0);
+
+		int r4_bee = c4.compare(f, e); //bee v beekeeper, 4
+		int r4_bees = c4.compare(a, b); //bees v beek, 4
+		int r4_bug = c4.compare(c, d); //bug v beeswax, 4
+		int r4_beeswax = c4.compare(a, d); //bees v beeswax, 4
+		int r3_beekeeper = c3.compare(e, d); //beekeeper v beeswax, 3
+		int r3_bee = c3.compare(f, d); //bee v beeswax, 3
+
+		assertEquals(-1,Math.signum(r4_bee),f.getWord()+ " should be less than "+e.getWord()+" with prefix size 4");
+		assertEquals(1,Math.signum(r4_bees),a.getWord()+ " should be greater than "+b.getWord()+" with prefix size 4");
+		assertEquals(1,Math.signum(r4_bug),c.getWord()+ " should be greater than "+d.getWord()+" with prefix size 4");
+		assertEquals(0,Math.signum(r4_beeswax),a.getWord()+ " "+d.getWord()+" with prefix size 4 should be equal");
+		assertEquals(0,Math.signum(r3_beekeeper),e.getWord()+ " "+d.getWord()+" with prefix size 3 should be equal");
+		assertEquals(0,Math.signum(r3_bee),f.getWord()+ " "+b.getWord()+" with prefix size 4 should be equal");
 	}
 }
