@@ -24,21 +24,12 @@ public class AutocompleteMain {
 	public static void main(String[] args) {
 		final int K = 10;
 		String filename = null;
-		
-		JFileChooser fileChooser = new JFileChooser(".");
-		int retval = fileChooser.showOpenDialog(null);
-		if (retval == JFileChooser.APPROVE_OPTION) {
-			File file;
-			if (filename == null)
-				file = fileChooser.getSelectedFile();
-			else
-				file = new File(filename);
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					new AutocompleteGUI(file.getAbsolutePath(), 
-				         K, AUTOCOMPLETOR_CLASS_NAME).setVisible(true);
-				}
-			});
-		}
+		File file = FileSelector.selectFile();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				new AutocompleteGUI(file.getAbsolutePath(),
+					 K, AUTOCOMPLETOR_CLASS_NAME).setVisible(true);
+			}
+		});
 	}
 }

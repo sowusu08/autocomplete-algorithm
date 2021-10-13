@@ -125,7 +125,7 @@ public class TestTerm {
 		Term a = new Term("bee",0);
 		Term b = new Term("beeswax",0);
 		Comparator<Term> c3 = PrefixComparator.getComparator(3);
-		Comparator<Term> c4 = PrefixComparator.getComparator(4); 
+		Comparator<Term> c4 = PrefixComparator.getComparator(4);
 
 		int r3 = c3.compare(a,b);
 		int r4 = c4.compare(a,b);
