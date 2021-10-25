@@ -85,6 +85,8 @@ public class BinarySearchLibrary {
 		}
 
 		// if we make it this far evaluate res
+		// if res == 0 then target is found at the index "high"
+		// otherwise target was not found in the list; return -1
 		if(res == 0) {
 			return high;
 		} else {
@@ -114,8 +116,40 @@ public class BinarySearchLibrary {
 		
 		// target in [low,high)
 		// TODO: write  method
+		int res = -1;
+		while (low + 1 != high) {
+			int mid = (low+high)/2;
+
+			// use comp.compare here to adjust low or high
+			res = comp.compare(list.get(mid),target);
+
+			// if res > 0  then target is less than mid
+			// so adjust high to mid
+			// otherwise (target is greater than or equal to mid) set low to mid
+			if(res > 0) {
+				high = mid;
+			} else {
+				low = mid;
+			}
+		}
+		// check that low is an index in list, if not? return -1
+		// check list.get(low) to see if it's target, use comp
+		if(low > -1){
+			res = comp.compare(list.get(low),target);
+		} else {
+			return -1;
+		}
+
+		// if we make it this far evaluate res
+		// if res == 0 then target is found at the index "high"
+		// otherwise target was not found in the list; return -1
+		if(res == 0) {
+			return low;
+		} else {
+			return -1;
+		}
 		
-		return -1;
+		//return -1;
 	}
 	
 }
