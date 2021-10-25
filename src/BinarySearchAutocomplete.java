@@ -99,6 +99,15 @@ public class BinarySearchAutocomplete implements Autocompletor {
 	
 	@Override
 	public List<Term> topMatches(String prefix, int k) {
+		// throw null pointer exception if prefix is null
+		if(prefix == null){
+			throw new NullPointerException();
+		}
+
+		if (k < 0) {
+			throw new IllegalArgumentException("Illegal value of k:"+k);
+		}
+
 		Term dummy = new Term(prefix,0);
 		PrefixComparator comp = PrefixComparator.getComparator(prefix.length());
 		int first = firstIndexOf(myTerms, dummy, comp);
@@ -109,8 +118,40 @@ public class BinarySearchAutocomplete implements Autocompletor {
 		}
 
 		// write code here for P5 assignment
+		// if we make it this far that means Terms with the prefix are found
+		// initialize a priority queue "matches" where order of elements (of type "Term") is by "getWeight" method
+		// loop through elements at indexes "first" through "last" inclusive in myTerms array
+			// if "matches".size() < k
+				// add the element to "matches"
+			// else add the element to "matches" then call .remove() on "matches"
+		PriorityQueue<Term> pq =
+				new PriorityQueue<>(Comparator.comparing(Term::getWeight));
 
-		return null;
+		Term currentTerm = null;
+		for (int i=first; i <= last; i++){	//Term t : myTerms) {
+			//if (!t.getWord().startsWith(prefix)) {
+				//continue; // don't process if doesn't begin with prefix
+			//}
+			currentTerm = myTerms[i];
+			if (pq.size() < k) {
+				pq.add(currentTerm);
+			} else if (pq.peek().getWeight() < currentTerm.getWeight()) {
+				pq.remove();
+				pq.add(currentTerm);
+			}
+		}
+
+		//return null;
+		// return a linkedList of the terms in pq
+		//System.out.println(pq);
+		int total_terms = pq.size();		// save the total number of terms to put in list (because it will change as we remove terms from pq)
+		LinkedList<Term> ret = new LinkedList<>();
+		for (int i = 0; i < total_terms; i++) {
+			ret.addFirst(pq.remove());
+		}
+		//System.out.println(ret.size());
+		//System.out.println(pq);
+		return ret;
 	
 	}
 
