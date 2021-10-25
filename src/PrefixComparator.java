@@ -45,10 +45,16 @@ public class    PrefixComparator implements Comparator<Term> {
         int search = this.myPrefixSize;
         //System.out.println("prefix length: "+search);
 
-        // set vCurrent to the first character in v
-        String vCurrent = String.valueOf(v.getWord().charAt(0));
-        // set wCurrent to the first character in w
-        String wCurrent = String.valueOf(w.getWord().charAt(0));
+        // set vCurrent to the first character in v if it is not an empty string
+        String vCurrent = "";
+        if(v.getWord() != ""){vCurrent = String.valueOf(v.getWord().charAt(0));}
+        //String vCurrent = String.valueOf(v.getWord().charAt(0));
+
+        // set wCurrent to the first character in w if it is not an empty string
+        String wCurrent = "";
+        if(w.getWord() != ""){wCurrent = String.valueOf(w.getWord().charAt(0));}
+        //String wCurrent = String.valueOf(w.getWord().charAt(0));
+
 
         // loop through parallel characters up to "search" and compare their values
         for(int k = 0; k < search; k++){
@@ -61,13 +67,13 @@ public class    PrefixComparator implements Comparator<Term> {
             // Set vCurrent and wCurrent to the next characters if they exist
             // otherwise set them to  " ".
             if(k == v.getWord().toCharArray().length - 1){
-                vCurrent = " ";
+                vCurrent = "";
             } else {
                 vCurrent = String.valueOf(v.getWord().charAt(k+1));
             }
 
             if(k == w.getWord().toCharArray().length - 1){
-                wCurrent = " ";
+                wCurrent = "";
             } else {
                 wCurrent = String.valueOf(w.getWord().charAt(k+1));
             }
