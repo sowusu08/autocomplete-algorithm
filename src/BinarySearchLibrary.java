@@ -48,11 +48,48 @@ public class BinarySearchLibrary {
 		
 		int low = -1;
 		int high = list.size()-1;
-		
+
 		// (low,high] contains target
 		// TODO: write method
-		
-		return -1;
+
+		int res = -1;
+		while (low + 1 != high) {
+			int mid = (low+high)/2;
+
+			// use comp.compare here to adjust low or high
+			res = comp.compare(list.get(mid),target);
+
+			// if res < 0  then target is greater than mid
+			// so adjust low to mid
+			// otherwise (target is less than or equal to mid) set high to mid
+			if(res < 0) {
+				low = mid;
+			} else {
+				high = mid;
+			}
+
+			// if res > 0 then target is less than mid
+			// so adjust high to mid
+			// if(res > 0){high = mid;}
+
+			// if res == 0 then target is equal to words at mid
+			// so return mid as the index where target occurs
+			// if(res == 0) {return mid;}
+		}
+		// check that high is an index in list, if not? return -1
+		// check list.get(high) to see if it's target, use comp
+		if(high > -1){
+			res = comp.compare(list.get(high),target);
+		} else {
+			return -1;
+		}
+
+		// if we make it this far evaluate res
+		if(res == 0) {
+			return high;
+		} else {
+			return -1;
+		}
 	}
 
 	 /**                                                                                          
