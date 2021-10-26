@@ -6,7 +6,7 @@ public class HashListAutocomplete implements Autocompletor {
     private Map<String, ArrayList<Term>> myMap = new HashMap<>();
     private int mySize;
 
-    protected Term[] myTerms;
+    private Term[] myTerms;
 
     // constructor
     public HashListAutocomplete(String[] terms, double[] weights) {
