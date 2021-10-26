@@ -47,6 +47,9 @@ public class HashListAutocomplete implements Autocompletor {
         myTerms = new Term[terms.length];
         //Term[] myTerms = new Term[terms.length];
 
+        // clear myMap
+        myMap.clear();
+
         for (int i = 0; i < terms.length; i++) {
             myTerms[i] = new Term(terms[i], weights[i]);
             if (weights[i] < 0) {
