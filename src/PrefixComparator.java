@@ -58,7 +58,7 @@ public class    PrefixComparator implements Comparator<Term> {
 
         // loop through parallel characters up to "search" and compare their values
         for(int k = 0; k < search; k++){
-            // if the characters are index k are different return .compareTo of those characters
+            // if the characters at index k are different return .compareTo of those characters
             if(!vCurrent.equals(wCurrent)) {
                 int comp = vCurrent.compareTo(wCurrent);
                 return comp;
@@ -66,13 +66,13 @@ public class    PrefixComparator implements Comparator<Term> {
 
             // Set vCurrent and wCurrent to the next characters if they exist
             // otherwise set them to  " ".
-            if(k == v.getWord().toCharArray().length - 1){
-                vCurrent = "";
+            if(k >= v.getWord().toCharArray().length - 1){      // check if current character index k >= number of chars in word..
+                vCurrent = "";                                  // ..if it is set all future next characters to ""
             } else {
                 vCurrent = String.valueOf(v.getWord().charAt(k+1));
             }
 
-            if(k == w.getWord().toCharArray().length - 1){
+            if(k >= w.getWord().toCharArray().length - 1){
                 wCurrent = "";
             } else {
                 wCurrent = String.valueOf(w.getWord().charAt(k+1));
