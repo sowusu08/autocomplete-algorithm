@@ -38,8 +38,9 @@ public class HashListAutocomplete implements Autocompletor {
             List<Term> list = all.subList(0, Math.min(k, all.size()));
             return list;
         }
-        // otherwise, if we make it this far, return null
-        return null;
+        // otherwise, if we make it this far, return empty list (no terms with prefix)
+        //return null;
+        return new ArrayList<>();
     }
 
     @Override
