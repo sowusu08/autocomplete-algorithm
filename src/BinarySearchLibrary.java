@@ -46,6 +46,9 @@ public class BinarySearchLibrary {
     	int firstIndex(List<T> list,
 	               	   T target, Comparator<T> comp) {
 		
+		// if the list of terms is empty return -1
+		if(list.size() == 0){return -1;}
+
 		int low = -1;
 		int high = list.size()-1;
 
@@ -110,12 +113,16 @@ public class BinarySearchLibrary {
 	public static <T>
 	int lastIndex(List<T> list, 
                	  T target, Comparator<T> comp) {
-		
+
+		// if the list of terms is empty return -1
+		if(list.size() == 0){return -1;}
+
 		int low = 0;
 		int high = list.size();
 		
 		// target in [low,high)
 		// TODO: write  method
+
 		int res = -1;
 		while (low + 1 != high) {
 			int mid = (low+high)/2;
